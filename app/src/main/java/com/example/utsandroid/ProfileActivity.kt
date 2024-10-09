@@ -7,31 +7,27 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.utsandroid.databinding.ActivityMainBinding
+import com.example.utsandroid.databinding.ActivityProfileBinding
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-
+class ProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
 //            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 //            insets
 //        }
+        val username = intent.getStringExtra("NAMA")
         with(binding){
-            buttonSubmit.setOnClickListener {
-                val nama = inpNama.text.toString()
-                if(nama.length == 0){
-                    Toast.makeText(this@MainActivity, "Enter your name first", Toast.LENGTH_SHORT).show()
-                } else {
-                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-                    intent.putExtra("NAMA", nama)
-                    startActivity(intent)
-                }
+            viewUsername.setText(username)
+            btnCancel.setOnClickListener {
+                val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this@ProfileActivity, "You have successfully logged out", Toast.LENGTH_SHORT).show()
             }
         }
     }
